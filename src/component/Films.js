@@ -38,13 +38,14 @@ class Films extends Component {
             <div className="row">
                 {this.state.films.map((film, index) => {
                     return (
-                        <div className="col-md-3 col-sm-6" key={index}>
-                            <a onClick={() => this.props.updateFilmId(film.url)}>
+                        <div className="col-md-3 col-sm-6 text-center" key={index}>
+                            <a className="cursor-pointer" onClick={() => this.props.updateFilmId(film.url)}>
                                 <img
+                                    className="rounded"
                                     src={this.props.swapi.getThumbnail(film.episode_id)}
                                     alt={film.title}
                                 />
-                                <p>{film.title}</p>
+                                <p className="font-weight-normal">{film.title}</p>
                             </a>
                         </div>
                     )}

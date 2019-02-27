@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import { BrowserRouter as Router, Link } from "react-router-dom"
 
 class Film extends Component {
 
@@ -25,9 +25,9 @@ class Film extends Component {
         })
     }
 
-    characters = () => {
-        return this.state.characters.map(character =>
-            <text className="mr-1"><a href={character.name}>{character.name}</a></text>
+    renderCharacters = () => {
+        return this.state.characters.map((character, index) =>
+            <span className="mr-1" key={index}><Link to={`/character/${index}`}>{character.name}</Link></span>
         )
     }
 
@@ -77,9 +77,11 @@ class Film extends Component {
                                 <p className="mb-0">
                                     <b>Characters</b>
                                 </p>
+                                    <Router>
                                 <p>
-                                    {this.characters()}
+                                        {this.renderCharacters()}
                                 </p>
+                                    </Router>
                             </div>
                             <button className="btn" onClick={() => this.props.reset()}>Close</button>
                         </div>

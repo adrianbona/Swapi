@@ -16,3 +16,7 @@ code {
 .modal-open {
     overflow: scroll;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
