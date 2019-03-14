@@ -13,7 +13,7 @@ class Films extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.orderBy != this.props.orderBy) {
+        if(prevProps.orderBy !== this.props.orderBy) {
             this.props.swapi.getFilms().then((films) => {
                 this.setState({
                     films: films.results.sort(this.compare)
@@ -23,7 +23,7 @@ class Films extends Component {
     }
 
     compare = (a, b) => {
-        if(this.props.orderBy == 1) {
+        if(this.props.orderBy === 1) {
             if (a.release_date > b.release_date) return 1
             if (b.release_date > a.release_date) return -1
         } else {
@@ -39,14 +39,14 @@ class Films extends Component {
                 {this.state.films.map((film, index) => {
                     return (
                         <div className="col-md-3 col-sm-6 text-center" key={index}>
-                            <a className="cursor-pointer" onClick={() => this.props.updateFilmId(film.url)}>
+                            <button className="m-2 cursor-pointer p-1" onClick={() => this.props.updateFilmId(film.url)}>
                                 <img
                                     className="rounded"
                                     src={this.props.swapi.getThumbnail(film.episode_id)}
                                     alt={film.title}
                                 />
-                                <p className="font-weight-normal">{film.title}</p>
-                            </a>
+                                <p className="m-1 font-weight-normal">{film.title}</p>
+                            </button>
                         </div>
                     )}
                 )}

@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import Film from './Film'
 import Films from './Films'
+import OrderBy from "./OrderBy";
 
 class App extends Component {
 
-    state = { film: null, loading: false, orderBy: 1 }
+    state = {
+        film: null,
+        loading: false,
+        orderBy: 1
+    }
 
     onOrderChanged = (e) => {
         this.setState({
-            orderBy: e.currentTarget.value
+            orderBy: parseInt(e.currentTarget.value)
         })
     }
 
@@ -44,34 +49,10 @@ class App extends Component {
                     }
                 </div>
                 <div className="mt-2">
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="orderBy"
-                            id="orderByDate"
-                            value="1"
-                            onChange={this.onOrderChanged}
-                            checked={this.state.orderBy == 1}
-                        />
-                            <label className="form-check-label" htmlFor="orderByDate">
-                                Order By Release Date
-                            </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="orderBy"
-                            id="orderByEpisode"
-                            value="2"
-                            onChange={this.onOrderChanged}
-                            checked={this.state.orderBy == 2}
-                        />
-                            <label className="form-check-label" htmlFor="orderByEpisode">
-                                Order By Episode Number
-                            </label>
-                    </div>
+                    <OrderBy
+                        onOrderChanged={this.onOrderChanged}
+                        checked={this.state.orderBy}
+                    />
                 </div>
             </div>
         )
