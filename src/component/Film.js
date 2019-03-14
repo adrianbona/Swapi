@@ -27,7 +27,9 @@ class Film extends Component {
 
     renderCharacters = () => {
         return this.state.characters.map((character, index) =>
-            <span className="mr-1" key={index}><Link to={`/character/${index}`}>{character.name}</Link></span>
+            <span className="mr-1" key={index}>
+                <Link to={`/character/${index}`}>{character.name}</Link>
+            </span>
         )
     }
 
