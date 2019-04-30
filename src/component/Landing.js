@@ -17,14 +17,15 @@ import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import Radio from '@material-ui/core/Radio'
+import Dialog from '@material-ui/core/Dialog'
 
 import {Films} from '../services/Films'
 import Film from './Film'
-import Dialog from '@material-ui/core/Dialog'
 
 const styles = theme => ({
     appBar: {
         position: 'relative',
+        backgroundColor: theme.palette.background.paper,
     },
     icon: {
         marginRight: theme.spacing.unit * 2,
@@ -32,13 +33,19 @@ const styles = theme => ({
     heroUnit: {
         backgroundColor: theme.palette.background.paper,
     },
+    jumbotron: {
+        margin: '0 auto',
+        border: '1px solid rgba(0,0,0,.6)',
+        backgroundColor: '#1c1e22',
+        padding: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 4}px`,
+    },
+    yellow: {
+        color: '#ffe300',
+    },
     heroContent: {
         maxWidth: 600,
         margin: '0 auto',
-        padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 3}px`,
-    },
-    heroButtons: {
-        marginTop: theme.spacing.unit * 4,
+        padding: `${theme.spacing.unit * 1}px 0 ${theme.spacing.unit * 1}px`,
     },
     layout: {
         width: 'auto',
@@ -157,15 +164,17 @@ class Landing extends Component {
                 </AppBar>
                 <main>
                     <div className={classes.heroUnit}>
-                        <div className={classes.heroContent}>
-                            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                        <div className={classes.jumbotron}>
+                            <Typography component="h1" variant="h2" align="center" className={classes.yellow} gutterBottom>
                                 SWAPI
                             </Typography>
-                            <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                            <Typography variant="h6" align="center" className={classes.yellow} paragraph>
                                 The Star Wars API
                             </Typography>
-                            <div className={classes.heroButtons}>
-                                <Grid container spacing={16} justify="center">
+                        </div>
+                        <div className={classes.heroContent}>
+                            <div>
+                                <Grid container spacing={8} justify="center">
                                     <Grid item>
                                         <FormControl component="fieldset" className={classes.formControl}>
                                             <FormLabel component="legend">Order Movies By</FormLabel>
@@ -175,8 +184,8 @@ class Landing extends Component {
                                                 className={classes.group}
                                                 value={orderBy}
                                                 onChange={this.onOrderChanged}>
-                                                <FormControlLabel value="1" control={<Radio/>} label="Release Date"/>
-                                                <FormControlLabel value="2" control={<Radio/>} label="Episode Number"/>
+                                                <FormControlLabel value="1" control={<Radio color="primary"/>} label="Release Date"/>
+                                                <FormControlLabel value="2" control={<Radio color="primary"/>} label="Episode Number"/>
                                             </RadioGroup>
                                         </FormControl>
                                     </Grid>
@@ -209,7 +218,7 @@ class Landing extends Component {
                     </div>
                 </main>
                 {
-                    <Dialog fullScreen onClose={this.reset} aria-labelledby="customized-dialog-title" open={!!film}>
+                    <Dialog onClose={this.reset} aria-labelledby="customized-dialog-title" open={!!film}>
                         <Film film={this.state.film} reset={this.reset}/>
                     </Dialog>
                 }

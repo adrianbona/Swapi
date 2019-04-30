@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
+import {Divider} from '@material-ui/core'
 
 import {Species} from '../services/Species'
 import {Characters} from '../services/Characters'
@@ -22,6 +23,12 @@ const styles = theme => ({
         right: theme.spacing.unit,
         top: theme.spacing.unit,
         color: theme.palette.grey[500],
+    },
+    top: {
+        padding: theme.spacing.unit * 2,
+    },
+    dividerFullWidth: {
+        margin: `${theme.spacing.unit * 2}px 0 ${theme.spacing.unit * 2}px 0`,
     },
 })
 
@@ -61,7 +68,7 @@ class Film extends Component {
 
     renderCharacters = () => {
         return this.state.characters.map((character, index) =>
-            <span key={index}>
+            <span key={index} style={{marginRight: '5px'}}>
                 <Link to={`/character/${index}`}>{character.name}</Link>
             </span>
         )
@@ -83,37 +90,42 @@ class Film extends Component {
                         <CloseIcon/>
                     </IconButton>
                 </MuiDialogTitle>
-                <DialogContent>
+                <DialogContent className={classes.top}>
                     <Typography gutterBottom>
                         Director
                     </Typography>
                     <Typography gutterBottom>
                         {film.director}
                     </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
                         Producer
                     </Typography>
                     <Typography gutterBottom>
                         {film.producer}
                     </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
                         Episode
                     </Typography>
                     <Typography gutterBottom>
                         {film.episode_id}
                     </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
                         Opening Crawl
                     </Typography>
                     <Typography gutterBottom>
                         {film.opening_crawl}
                     </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
                         Species
                     </Typography>
                     <Typography gutterBottom>
                         {species.join(', ')}
                     </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
                         Characters
                     </Typography>
