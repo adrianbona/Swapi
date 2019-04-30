@@ -165,7 +165,8 @@ class Landing extends Component {
                 <main>
                     <div className={classes.heroUnit}>
                         <div className={classes.jumbotron}>
-                            <Typography component="h1" variant="h2" align="center" className={classes.yellow} gutterBottom>
+                            <Typography component="h1" variant="h2" align="center" className={classes.yellow}
+                                        gutterBottom>
                                 SWAPI
                             </Typography>
                             <Typography variant="h6" align="center" className={classes.yellow} paragraph>
@@ -184,8 +185,10 @@ class Landing extends Component {
                                                 className={classes.group}
                                                 value={orderBy}
                                                 onChange={this.onOrderChanged}>
-                                                <FormControlLabel value="1" control={<Radio color="primary"/>} label="Release Date"/>
-                                                <FormControlLabel value="2" control={<Radio color="primary"/>} label="Episode Number"/>
+                                                <FormControlLabel value="1" control={<Radio color="primary"/>}
+                                                                  label="Release Date"/>
+                                                <FormControlLabel value="2" control={<Radio color="primary"/>}
+                                                                  label="Episode Number"/>
                                             </RadioGroup>
                                         </FormControl>
                                     </Grid>
@@ -201,10 +204,9 @@ class Landing extends Component {
                                         <CardMedia
                                             className={classes.cardMedia}
                                             image={this.state.service.getThumbnail(aFilm.get('episode_id'))}
-                                            title="Image title"
-                                        />
+                                            title="Image title"/>
                                         <CardContent className={classes.cardContent}>
-                                            <Typography gutterBottom variant="h5" component="h3">
+                                            <Typography gutterBottom variant="h6" component="h6">
                                                 {`${aFilm.get('title')}`}
                                             </Typography>
                                             <Typography gutterBottom variant="h6" component="h6">

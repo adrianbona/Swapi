@@ -1,11 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
 
 import Landing from './component/Landing'
 
 const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
     palette: {
         type: 'dark',
         primary: {
