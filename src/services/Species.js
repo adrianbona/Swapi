@@ -1,12 +1,14 @@
+import {Swapi} from '../infrastructure/Swapi'
+
 export class Species {
 
-    constructor(swapi)
+    constructor()
     {
-        this._swapi = swapi
+        this.swapi = new Swapi()
     }
 
     getSpecie(url) {
-        return this._swapi.get(url).then((specie) => {
+        return this.swapi.get(url).then((specie) => {
             return specie
         })
     }

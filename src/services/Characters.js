@@ -1,8 +1,10 @@
+import {Swapi} from '../infrastructure/Swapi'
+
 export class Characters {
 
-    constructor(swapi)
+    constructor()
     {
-        this.swapi = swapi
+        this.swapi = new Swapi()
     }
 
     getCharacter(url) {

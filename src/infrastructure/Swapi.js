@@ -1,8 +1,8 @@
 export class Swapi {
 
-    get(url = "") {
+    get(url = '') {
         if (!url) {
-            url = "https://swapi.co/api/films/"
+            url = 'https://swapi.co/api/films/'
         }
 
         return (

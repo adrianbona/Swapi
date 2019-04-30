@@ -1,13 +1,46 @@
-import React, { Component } from 'react'
-import { BrowserRouter as Router, Link } from "react-router-dom"
+import React, {Component, Fragment} from 'react'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
+
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+import DialogContent from '@material-ui/core/DialogContent'
+import MuiDialogTitle from '@material-ui/core/DialogTitle'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+
+import {Species} from '../services/Species'
+import {Characters} from '../services/Characters'
+
+const styles = theme => ({
+    root: {
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        margin: 0,
+        padding: theme.spacing.unit * 2,
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing.unit,
+        top: theme.spacing.unit,
+        color: theme.palette.grey[500],
+    },
+})
+
 
 class Film extends Component {
 
-    state = { species: [], characters: [] }
+    constructor(props) {
+        super(props)
+        this.state = {
+            speciesService: new Species(),
+            charactersService: new Characters(),
+            species: [],
+            characters: [],
+        }
+    }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.props.film.species.map((specieUrl) => {
-            this.props.species.getSpecie(specieUrl).then((specie) => {
+            return this.state.speciesService.getSpecie(specieUrl).then((specie) => {
                 this.setState(prevState => ({
                     species: [...prevState.species, specie.name]
                 }))
@@ -15,84 +48,84 @@ class Film extends Component {
         })
 
         this.props.film.characters.map((characterUrl) => {
-            this.props.characters.getCharacter(characterUrl).then((character) => {
+            return this.state.charactersService.getCharacter(characterUrl).then((character) => {
                 this.setState(prevState => {
                     prevState.characters.push(character)
                     return {
                         characters: prevState.characters
-                }})
+                    }
+                })
             })
         })
     }
 
     renderCharacters = () => {
         return this.state.characters.map((character, index) =>
-            <span className="mr-1" key={index}>
+            <span key={index}>
                 <Link to={`/character/${index}`}>{character.name}</Link>
             </span>
         )
     }
 
-    render() {
+    render = () => {
+        const {classes, film, reset} = this.props
+        const {species} = this.state
+
+        if (!film) {
+            return null
+        }
+
         return (
-            <div>
-                <div className="modal fade show d-block modal-open">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-body">
-                                <p className="mb-0">
-                                    <b>Title</b>
-                                </p>
-                                <p>
-                                    {this.props.film.title}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Director</b>
-                                </p>
-                                <p>
-                                    {this.props.film.director}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Producer</b>
-                                </p>
-                                <p>
-                                    {this.props.film.producer}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Episode</b>
-                                </p>
-                                <p>
-                                    {this.props.film.episode_id}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Opening Crawl</b>
-                                </p>
-                                <p>
-                                    {this.props.film.opening_crawl}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Species</b>
-                                </p>
-                                <p>
-                                    {this.state.species.join(", ")}
-                                </p>
-                                <p className="mb-0">
-                                    <b>Characters</b>
-                                </p>
-                                    <Router>
-                                <p>
-                                        {this.renderCharacters()}
-                                </p>
-                                    </Router>
-                            </div>
-                            <button className="btn" onClick={() => this.props.reset()}>Close</button>
-                        </div>
-                    </div>
-                </div>
-                <div className="modal-backdrop fade show"/>
-            </div>
+            <Fragment>
+                <MuiDialogTitle disableTypography className={classes.root}>
+                    <Typography variant="h6">{film.title}</Typography>
+                    <IconButton aria-label="Close" className={classes.closeButton} onClick={reset}>
+                        <CloseIcon/>
+                    </IconButton>
+                </MuiDialogTitle>
+                <DialogContent>
+                    <Typography gutterBottom>
+                        Director
+                    </Typography>
+                    <Typography gutterBottom>
+                        {film.director}
+                    </Typography>
+                    <Typography gutterBottom>
+                        Producer
+                    </Typography>
+                    <Typography gutterBottom>
+                        {film.producer}
+                    </Typography>
+                    <Typography gutterBottom>
+                        Episode
+                    </Typography>
+                    <Typography gutterBottom>
+                        {film.episode_id}
+                    </Typography>
+                    <Typography gutterBottom>
+                        Opening Crawl
+                    </Typography>
+                    <Typography gutterBottom>
+                        {film.opening_crawl}
+                    </Typography>
+                    <Typography gutterBottom>
+                        Species
+                    </Typography>
+                    <Typography gutterBottom>
+                        {species.join(', ')}
+                    </Typography>
+                    <Typography gutterBottom>
+                        Characters
+                    </Typography>
+                    <Typography gutterBottom>
+                        <Router>
+                            <Fragment>{this.renderCharacters()}</Fragment>
+                        </Router>
+                    </Typography>
+                </DialogContent>
+            </Fragment>
         )
     }
 }
 
-export default Film
+export default withStyles(styles)(Film)
