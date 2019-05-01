@@ -1,15 +1,7 @@
-import {Swapi} from '../infrastructure/Swapi'
+import {swapi} from './Swapi'
 
-export class Characters {
-
-    constructor()
-    {
-        this.swapi = new Swapi()
-    }
-
-    getCharacter(url) {
-        return this.swapi.get(url).then((character) => {
-            return character
-        })
-    }
+export const getCharacter = (url) => {
+    return swapi(url).then((character) => {
+        return character
+    })
 }

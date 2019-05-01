@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {BrowserRouter as Router, Link} from 'react-router-dom'
+import * as PropTypes from 'prop-types'
 
 import Typography from '@material-ui/core/Typography'
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -9,8 +10,8 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import {Divider} from '@material-ui/core'
 
-import {Species} from '../services/Species'
-import {Characters} from '../services/Characters'
+import {getSpecie} from '../services/Species'
+import {getCharacter} from '../services/Characters'
 
 const styles = theme => ({
     root: {
@@ -32,22 +33,15 @@ const styles = theme => ({
     },
 })
 
-
-class Film extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            speciesService: new Species(),
-            charactersService: new Characters(),
-            species: [],
-            characters: [],
-        }
+class FilmDetailsModal extends Component {
+    state = {
+        species: [],
+        characters: [],
     }
 
     componentDidMount = () => {
         this.props.film.species.map((specieUrl) => {
-            return this.state.speciesService.getSpecie(specieUrl).then((specie) => {
+            return getSpecie(specieUrl).then((specie) => {
                 this.setState(prevState => ({
                     species: [...prevState.species, specie.name]
                 }))
@@ -55,7 +49,7 @@ class Film extends Component {
         })
 
         this.props.film.characters.map((characterUrl) => {
-            return this.state.charactersService.getCharacter(characterUrl).then((character) => {
+            return getCharacter(characterUrl).then((character) => {
                 this.setState(prevState => {
                     prevState.characters.push(character)
                     return {
@@ -67,11 +61,15 @@ class Film extends Component {
     }
 
     renderCharacters = () => {
-        return this.state.characters.map((character, index) =>
-            <span key={index} style={{marginRight: '5px'}}>
-                <Link to={`/character/${index}`}>{character.name}</Link>
-            </span>
-        )
+        return this.state.characters.map((character, index) => {
+            return (
+                <Router key={index}>
+                    <span style={{marginRight: '5px'}}>
+                        <Link to={`/character/${index}`}>{character.name}</Link>
+                    </span>
+                </Router>
+            )
+        })
     }
 
     render = () => {
@@ -113,6 +111,13 @@ class Film extends Component {
                     </Typography>
                     <Divider className={classes.dividerFullWidth}/>
                     <Typography gutterBottom>
+                        Released Year
+                    </Typography>
+                    <Typography gutterBottom>
+                        {`${(new Date(film.release_date).getFullYear())}`}
+                    </Typography>
+                    <Divider className={classes.dividerFullWidth}/>
+                    <Typography gutterBottom>
                         Opening Crawl
                     </Typography>
                     <Typography gutterBottom>
@@ -130,9 +135,7 @@ class Film extends Component {
                         Characters
                     </Typography>
                     <Typography gutterBottom>
-                        <Router>
-                            <Fragment>{this.renderCharacters()}</Fragment>
-                        </Router>
+                        {this.renderCharacters()}
                     </Typography>
                 </DialogContent>
             </Fragment>
@@ -140,4 +143,10 @@ class Film extends Component {
     }
 }
 
-export default withStyles(styles)(Film)
+FilmDetailsModal.propTypes = {
+    classes: PropTypes.object.isRequired,
+    film: PropTypes.object,
+    reset: PropTypes.func.isRequired,
+}
+
+export default withStyles(styles)(FilmDetailsModal)
