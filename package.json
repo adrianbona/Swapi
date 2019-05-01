@@ -1,32 +1,31 @@
 {
-  "name": "swapi",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^3.9.3",
-    "@material-ui/icons": "^3.0.2",
-    "classnames": "^2.2.6",
-    "eslint": "^5.16.0",
-    "immutable": "^4.0.0-rc.12",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.0.0",
-    "typeface-roboto": "0.0.54"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "name": "swapi",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@material-ui/core": "^3.9.3",
+        "@material-ui/icons": "^3.0.2",
+        "classnames": "^2.2.6",
+        "eslint": "^5.16.0",
+        "immutable": "^4.0.0-rc.12",
+        "prop-types": "^15.7.2",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "react-router-dom": "^4.3.1",
+        "react-scripts": "^3.0.0",
+        "typeface-roboto": "0.0.54"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
 }
